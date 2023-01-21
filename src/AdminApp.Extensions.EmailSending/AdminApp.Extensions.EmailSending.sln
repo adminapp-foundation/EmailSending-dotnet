@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C5B01F77-A021-42B9-BC07-4D7AFBF63BE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApp.Extensions.EmailSending.Abstractions", "..\AdminApp.Extensions.EmailSending.Abstractions\src\AdminApp.Extensions.EmailSending.Abstractions.csproj", "{051514F2-D291-4ADB-8254-63DBF45178AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApp.Extensions.EmailSending", "src\AdminApp.Extensions.EmailSending.csproj", "{1E4781D5-53CC-4176-A4E4-CBE5609DA6B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{051514F2-D291-4ADB-8254-63DBF45178AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{051514F2-D291-4ADB-8254-63DBF45178AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{051514F2-D291-4ADB-8254-63DBF45178AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{051514F2-D291-4ADB-8254-63DBF45178AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E4781D5-53CC-4176-A4E4-CBE5609DA6B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E4781D5-53CC-4176-A4E4-CBE5609DA6B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E4781D5-53CC-4176-A4E4-CBE5609DA6B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E4781D5-53CC-4176-A4E4-CBE5609DA6B4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{051514F2-D291-4ADB-8254-63DBF45178AD} = {C5B01F77-A021-42B9-BC07-4D7AFBF63BE3}
+		{1E4781D5-53CC-4176-A4E4-CBE5609DA6B4} = {C5B01F77-A021-42B9-BC07-4D7AFBF63BE3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_SortFileContentOnSave = True
+		SolutionGuid = {DB26AFDC-0B23-47F1-9098-A269716E08DE}
+	EndGlobalSection
+EndGlobal
