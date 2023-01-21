@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\AdminApp.Extensions.EmailSending.Abstractions\src\AdminApp.Extensions.EmailSending.Abstractions.csproj" />
+    <ProjectReference Include="..\..\AdminApp.Extensions.EmailSending\src\AdminApp.Extensions.EmailSending.csproj" />
+  </ItemGroup>
+
+</Project>
