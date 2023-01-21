@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <PackageDescription>
+      Email sending abstractions for AdminApp.Extensions.EmailSending.
+    </PackageDescription>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Common\src\TypeNameHelper\TypeNameHelper.cs" Link="Common\TypeNameHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
+
+</Project>
