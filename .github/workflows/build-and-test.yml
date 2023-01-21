@@ -1,0 +1,41 @@
+name: Build And Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      SOLUTION: ${{ matrix.solution }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        framework: [net6.0, net7.0]
+        solution:
+          - "src/AdminApp.Extensions.EmailSending.Abstractions/AdminApp.Extensions.EmailSending.Abstractions.sln"
+          - "src/AdminApp.Extensions.EmailSending/AdminApp.Extensions.EmailSending.sln"
+          - "src/AdminApp.Extensions.EmailSending.Mailgun/AdminApp.Extensions.EmailSending.Mailgun.sln"
+          - "src/AdminApp.Extensions.EmailSending.SendGrid/AdminApp.Extensions.EmailSending.SendGrid.sln"
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: |
+            6.0.x
+            7.0.x
+    - name: Restore
+      run: dotnet restore ${{ env.SOLUTION }}
+
+    - name: Build
+      run: dotnet build ${{ env.SOLUTION }} --configuration Release --no-restore
