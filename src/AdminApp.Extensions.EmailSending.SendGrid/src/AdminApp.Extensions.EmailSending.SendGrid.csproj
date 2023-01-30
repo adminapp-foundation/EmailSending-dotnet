@@ -1,14 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>$(NetCoreCurrent);$(NetCorePrevious)</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <IsPackable>true</IsPackable>
+    <Description>SendGrid integration of AdminApp.Extensions.EmailSending for .Net applications.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\AdminApp.Extensions.EmailSending.Abstractions\src\AdminApp.Extensions.EmailSending.Abstractions.csproj" />
     <ProjectReference Include="..\..\AdminApp.Extensions.EmailSending\src\AdminApp.Extensions.EmailSending.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
