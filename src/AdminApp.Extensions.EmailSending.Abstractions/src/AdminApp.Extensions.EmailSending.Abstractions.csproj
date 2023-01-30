@@ -1,13 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>$(NetCoreCurrent);$(NetCorePrevious)</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>true</IsPackable>
-    <PackageDescription>
-      Email sending abstractions for AdminApp.Extensions.EmailSending.
-    </PackageDescription>
+    <Description>Abstractions for AdminApp.Extensions.EmailSending. Interfaces defined in this package are implemented by classes in AdminApp.Extensions.EmailSending and other emailsending packages.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +15,13 @@
 
   <ItemGroup>
     <Folder Include="Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
