@@ -1,0 +1,57 @@
+<Project>
+
+  <PropertyGroup>
+    <GitHubRepositoryName>EmailSending-dotnet</GitHubRepositoryName>
+    <RepositoryUrl>https://github.com/adminapp-foundation/$(GitHubRepositoryName)</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageProjectUrl>https://adminappfoundation.org</PackageProjectUrl>
+    <IncludeSymbols>True</IncludeSymbols>
+    <LicenseFile>$(MSBuildThisFileDirectory)LICENSE.txt</LicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <Copyright>© Admin App Foundation</Copyright>
+    <Authors>Admin App Foundation</Authors>
+    <Owners>adminappfoundation</Owners>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReleaseNotes>For the release notes please follow https://github.com/adminapp-foundation/EmailSending-dotnet/releases</PackageReleaseNotes>
+    <PackageTags>Transactional Email</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SemanticVersionMajor>1</SemanticVersionMajor>
+    <SemanticVersionMinor>0</SemanticVersionMinor> <!-- If changing the Minor version, also update the Date value. -->
+    <SemanticVersionPatch>0</SemanticVersionPatch>
+    <PreReleaseMilestone>alpha1</PreReleaseMilestone> <!--Valid values: beta1, beta2, EMPTY for stable -->
+
+    <SemanticVersionDate>2023-01-29</SemanticVersionDate> <!--Date when Semantic Version was changed. Update for every MINOR release. Do not update when updating PreReleaseMilestone update . -->
+    <BuildNumberHours>$([MSBuild]::Divide($([System.DateTime]::Now.Subtract($([System.DateTime]::Parse($(SemanticVersionDate)))).TotalHours), 12))</BuildNumberHours>
+    <BuildNumber>$([System.Math]::Floor($(BuildNumberHours)).ToString('F0').PadLeft(5, '0'))</BuildNumber>
+
+    <VersionPrefix>$(SemanticVersionMajor).$(SemanticVersionMinor).$(SemanticVersionPatch)</VersionPrefix>
+    <VersionSuffix>$(PreReleaseMilestone)</VersionSuffix>
+    <AssemblyVersion>$(VersionPrefix).$(BuildNumber)</AssemblyVersion>
+    <FileVersion>$(AssemblyVersion)</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(PackageVersion)'==''">
+    <PackageVersion>$(VersionPrefix)</PackageVersion>
+    <PackageVersion Condition="'$(PreReleaseMilestone)' != ''">$(PackageVersion)-$(PreReleaseMilestone)</PackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttributes Include="AssemblyVersion">
+      <_Parameter1>$(AssemblyVersion)</_Parameter1>
+    </AssemblyAttributes>
+    <AssemblyAttributes Include="AssemblyFileVersion">
+      <_Parameter1>$(FileVersion)</_Parameter1>
+    </AssemblyAttributes>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory).images\icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
