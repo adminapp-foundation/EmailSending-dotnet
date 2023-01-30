@@ -1,14 +1,17 @@
 <Project>
+  <PropertyGroup>
+    <NetCoreCurrent>net7.0</NetCoreCurrent>
+    <NetCorePrevious>net6.0</NetCorePrevious>
+  </PropertyGroup>
 
   <PropertyGroup>
     <GitHubRepositoryName>EmailSending-dotnet</GitHubRepositoryName>
     <RepositoryUrl>https://github.com/adminapp-foundation/$(GitHubRepositoryName)</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageProjectUrl>https://adminappfoundation.org</PackageProjectUrl>
-    <IncludeSymbols>True</IncludeSymbols>
-    <LicenseFile>$(MSBuildThisFileDirectory)LICENSE.txt</LicenseFile>
+    <IncludeSymbols>true</IncludeSymbols>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Copyright>© Admin App Foundation</Copyright>
     <Authors>Admin App Foundation</Authors>
     <Owners>adminappfoundation</Owners>
