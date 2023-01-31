@@ -5,7 +5,9 @@ namespace AdminApp.Extensions.EmailSending.Mailgun
     public class MailgunOptions
     {
         public string? ApiKey { get; set; }
+
         public EmailAddress? FromEmailAddress { get; set; }
+
         public IList<MailgunFromEmailRule>? FromEmailRules { get; set; } = new List<MailgunFromEmailRule>();
     }
 
