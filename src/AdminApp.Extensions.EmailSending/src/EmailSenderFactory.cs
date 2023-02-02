@@ -14,7 +14,7 @@ namespace AdminApp.Extensions.EmailSending
         private readonly object _sync = new();
         private readonly Dictionary<string, EmailSender> _emailSenders = new(StringComparer.Ordinal);
         private readonly List<ProviderRegistration> _providerRegistrations = new();
-        private EmailSenderOptions _options;
+        private EmailSendingOptions _options;
         private IDisposable? _changeTokenRegistration;
 
         private volatile bool _disposed;
@@ -27,16 +27,16 @@ namespace AdminApp.Extensions.EmailSending
         {
         }
 
-        public EmailSenderFactory(IEnumerable<IEmailSenderProvider> providers) : this(providers, new StaticOptionsMonitor(new EmailSenderOptions()))
+        public EmailSenderFactory(IEnumerable<IEmailSenderProvider> providers) : this(providers, new StaticOptionsMonitor(new EmailSendingOptions()))
         {
         }
 
-        public EmailSenderFactory(IEnumerable<IEmailSenderProvider> providers, EmailSenderOptions options)
+        public EmailSenderFactory(IEnumerable<IEmailSenderProvider> providers, EmailSendingOptions options)
             : this(providers, new StaticOptionsMonitor(options))
         {
         }
 
-        public EmailSenderFactory(IEnumerable<IEmailSenderProvider> providers, IOptionsMonitor<EmailSenderOptions> optionsDelegate)
+        public EmailSenderFactory(IEnumerable<IEmailSenderProvider> providers, IOptionsMonitor<EmailSendingOptions> optionsDelegate)
         {
             foreach (IEmailSenderProvider provider in providers)
             {
@@ -127,7 +127,7 @@ namespace AdminApp.Extensions.EmailSending
         }
 
         [MemberNotNull(nameof(_options))]
-        private void RefreshFilters(EmailSenderOptions options)
+        private void RefreshFilters(EmailSendingOptions options)
         {
             lock (_sync)
             {
@@ -180,30 +180,33 @@ namespace AdminApp.Extensions.EmailSending
         {
             foreach (var emailSenderProviderInfo in emailSenderProviderInfoes)
             {
-                CategoryEmailRule? currentCategoryEmailRule = null;
-                foreach (var rule in _options.InternalCategoryEmailRules)
+                string? currentRuleKey = null;
+                CategoryRuleValue? currentRuleValue = null;
+
+                foreach (var pair in _options.CategoryRules)
                 {
-                    if (IsBetterCategoryEmailRule(rule, currentCategoryEmailRule, emailSenderProviderInfo.Category))
+                    if (IsBetterCategoryEmailRule(pair.Key, currentRuleKey, emailSenderProviderInfo.Category))
                     {
-                        currentCategoryEmailRule = rule;
+                        currentRuleKey = pair.Key;
+                        currentRuleValue = pair.Value;
                     }
                 }
 
-                if (currentCategoryEmailRule != null)
+                if (currentRuleValue != null)
                 {
-                    var fromEmail = currentCategoryEmailRule.FromEmailAddress.Email;
+                    var fromEmail = currentRuleValue.FromEmailAddress.Email;
 
-                    foreach (FromEmailProviderNameRule rule in _options.InternalFromEmailProviderNameRules)
+                    foreach (var pair in _options.FromRules)
                     {
-                        if (fromEmail.ToUpperInvariant() == rule.FromEmail.ToUpperInvariant())
+                        if (fromEmail.ToUpperInvariant() == pair.Key.ToUpperInvariant())
                         {
-                            return rule.ProviderNames
+                            return pair.Value
                                 .ToList()
                                 .Select(providerName =>
                                 new PreferredProviderInfo(
                                     providerName,
-                                    currentCategoryEmailRule.FromEmailAddress,
-                                    currentCategoryEmailRule.ReplyToEmailAddress)
+                                    currentRuleValue.FromEmailAddress,
+                                    currentRuleValue.ReplyToEmailAddress)
                                 )
                                 .ToList();
 
@@ -212,9 +215,9 @@ namespace AdminApp.Extensions.EmailSending
                 }
             }
 
-            if (_options.InternalPreferredProviderNames.Any())
+            if (_options.ProviderOrders.Any())
             {
-                return _options.InternalPreferredProviderNames
+                return _options.ProviderOrders
                               .ToList()
                               .Select(providerName => new PreferredProviderInfo(providerName, null, null))
                               .ToList();
@@ -223,16 +226,16 @@ namespace AdminApp.Extensions.EmailSending
             return new List<PreferredProviderInfo>();
         }
 
-        private static bool IsBetterCategoryEmailRule(CategoryEmailRule rule, CategoryEmailRule? current, string category)
+        private static bool IsBetterCategoryEmailRule(string? categoryNameToCheck, string? currentCategoryName, string category)
         {
-            string? categoryName = rule.CategoryName;
-            if (categoryName != null)
+            
+            if (categoryNameToCheck != null)
             {
                 const char WildcardChar = '*';
 
-                int wildcardIndex = categoryName.IndexOf(WildcardChar);
+                int wildcardIndex = categoryNameToCheck.IndexOf(WildcardChar);
                 if (wildcardIndex != -1 &&
-                    categoryName.IndexOf(WildcardChar, wildcardIndex + 1) != -1)
+                    categoryNameToCheck.IndexOf(WildcardChar, wildcardIndex + 1) != -1)
                 {
                     throw new InvalidOperationException(SR.MoreThanOneWildcard);
                 }
@@ -240,13 +243,13 @@ namespace AdminApp.Extensions.EmailSending
                 ReadOnlySpan<char> prefix, suffix;
                 if (wildcardIndex == -1)
                 {
-                    prefix = categoryName.AsSpan();
+                    prefix = categoryNameToCheck.AsSpan();
                     suffix = default;
                 }
                 else
                 {
-                    prefix = categoryName.AsSpan(0, wildcardIndex);
-                    suffix = categoryName.AsSpan(wildcardIndex + 1);
+                    prefix = categoryNameToCheck.AsSpan(0, wildcardIndex);
+                    suffix = categoryNameToCheck.AsSpan(wildcardIndex + 1);
                 }
 
                 if (!category.AsSpan().StartsWith(prefix, StringComparison.OrdinalIgnoreCase) ||
@@ -256,14 +259,14 @@ namespace AdminApp.Extensions.EmailSending
                 }
             }
 
-            if (current?.CategoryName != null)
+            if (currentCategoryName != null)
             {
-                if (rule.CategoryName == null)
+                if (categoryNameToCheck == null)
                 {
                     return false;
                 }
 
-                if (current.CategoryName.Length > rule.CategoryName.Length)
+                if (currentCategoryName.Length > categoryNameToCheck.Length)
                 {
                     return false;
                 }

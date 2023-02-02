@@ -19,8 +19,8 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.TryAdd(ServiceDescriptor.Singleton<IEmailSenderFactory, EmailSenderFactory>());
             services.TryAdd(ServiceDescriptor.Singleton(typeof(IEmailSender<>), typeof(EmailSender<>)));
-            services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<EmailSenderOptions>>(
-                new ConfigureOptions<EmailSenderOptions>(options => { })));
+            services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<EmailSendingOptions>>(
+                new ConfigureOptions<EmailSendingOptions>(options => { })));
 
             configure(new EmailSenderBuilder(services));
 

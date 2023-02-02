@@ -4,17 +4,17 @@ using Microsoft.Extensions.Options;
 
 namespace AdminApp.Extensions.EmailSending
 {
-    internal sealed class StaticOptionsMonitor : IOptionsMonitor<EmailSenderOptions>
+    internal sealed class StaticOptionsMonitor : IOptionsMonitor<EmailSendingOptions>
     {
-        public StaticOptionsMonitor(EmailSenderOptions currentValue)
+        public StaticOptionsMonitor(EmailSendingOptions currentValue)
         {
             CurrentValue = currentValue;
         }
 
-        public IDisposable? OnChange(Action<EmailSenderOptions, string> listener) => null;
+        public IDisposable? OnChange(Action<EmailSendingOptions, string> listener) => null;
 
-        public EmailSenderOptions Get(string? name) => CurrentValue;
+        public EmailSendingOptions Get(string? name) => CurrentValue;
 
-        public EmailSenderOptions CurrentValue { get; }
+        public EmailSendingOptions CurrentValue { get; }
     }
 }

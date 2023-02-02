@@ -21,7 +21,7 @@ namespace AdminApp.Extensions.EmailSending
             return builder;
         }
 
-        public static IEmailSenderBuilder Configure(this IEmailSenderBuilder builder, Action<EmailSenderOptions> action)
+        public static IEmailSenderBuilder Configure(this IEmailSenderBuilder builder, Action<EmailSendingOptions> action)
         {
             builder.Services.Configure(action);
 
