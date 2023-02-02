@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{76E156EF-D028-4411-8CCE-930A376B0FE5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApp.Extensions.EmailSending.Abstractions", "..\AdminApp.Extensions.EmailSending.Abstractions\src\AdminApp.Extensions.EmailSending.Abstractions.csproj", "{E89B510E-29E7-47CD-9380-AA1D13281960}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApp.Extensions.EmailSending", "..\AdminApp.Extensions.EmailSending\src\AdminApp.Extensions.EmailSending.csproj", "{290D3E03-49B6-4578-8CAD-5B88E005EFB9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdminApp.Extensions.EmailSending.Mailgun", "src\AdminApp.Extensions.EmailSending.Mailgun.csproj", "{13876456-2E0E-4D00-B3EE-6BF14A950E3A}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E89B510E-29E7-47CD-9380-AA1D13281960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E89B510E-29E7-47CD-9380-AA1D13281960}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E89B510E-29E7-47CD-9380-AA1D13281960}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E89B510E-29E7-47CD-9380-AA1D13281960}.Release|Any CPU.Build.0 = Release|Any CPU
 		{290D3E03-49B6-4578-8CAD-5B88E005EFB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{290D3E03-49B6-4578-8CAD-5B88E005EFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{290D3E03-49B6-4578-8CAD-5B88E005EFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,7 +28,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{E89B510E-29E7-47CD-9380-AA1D13281960} = {76E156EF-D028-4411-8CCE-930A376B0FE5}
 		{290D3E03-49B6-4578-8CAD-5B88E005EFB9} = {76E156EF-D028-4411-8CCE-930A376B0FE5}
 		{13876456-2E0E-4D00-B3EE-6BF14A950E3A} = {76E156EF-D028-4411-8CCE-930A376B0FE5}
 	EndGlobalSection
