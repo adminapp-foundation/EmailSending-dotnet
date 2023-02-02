@@ -52,14 +52,34 @@ namespace AdminApp.Extensions.EmailSending.Configuration
                 foreach (var categoryRule in categoryRules)
                 {
                     var categoryRuleValue = categoryRule.Value;
-
                     if (categoryRuleValue != null && categoryRuleValue.FromEmailAddress != null)
                     {
-                        options.CategoryRules.TryAdd(
+                        var added = options.CategoryRules.TryAdd(
                             categoryRule.Key,
                             new CategoryRuleValue(categoryRuleValue.FromEmailAddress, categoryRuleValue.ReplyToEmailAddress));
-                    }
+                        if (!added)
+                        {
+                            var existingValue = options.CategoryRules[categoryRule.Key];
+                            if (existingValue != null)
+                            {
+                                if(string.IsNullOrWhiteSpace(existingValue.FromEmailAddress.Name) &&
+                                    !string.IsNullOrWhiteSpace(categoryRuleValue.FromEmailAddress.Name))
+                                {
+                                    existingValue.FromEmailAddress.Name = categoryRuleValue.FromEmailAddress.Name;
+                                }
 
+                                if(existingValue.ReplyToEmailAddress == null)
+                                {
+                                    existingValue.ReplyToEmailAddress = categoryRuleValue.ReplyToEmailAddress;
+                                } else if(string.IsNullOrWhiteSpace(existingValue.ReplyToEmailAddress.Name) &&
+                                    categoryRuleValue.ReplyToEmailAddress != null &&
+                                    !string.IsNullOrWhiteSpace(categoryRuleValue.ReplyToEmailAddress.Name))
+                                {
+                                    existingValue.ReplyToEmailAddress.Name = categoryRuleValue.ReplyToEmailAddress.Name;
+                                }
+                            }                       
+                        }
+                    }
                 }
             }
         }
