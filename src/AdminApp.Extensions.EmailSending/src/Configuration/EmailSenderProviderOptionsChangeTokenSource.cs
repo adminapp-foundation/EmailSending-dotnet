@@ -4,8 +4,8 @@ using Microsoft.Extensions.Options;
 
 namespace AdminApp.Extensions.EmailSending.Configuration
 {
-    internal class EmailSenderProviderOptionsChangeTokenSource<TOptions, TProvider> : ConfigurationChangeTokenSource<TOptions>
-    {
+    public class EmailSenderProviderOptionsChangeTokenSource<TOptions, TProvider> : ConfigurationChangeTokenSource<TOptions>
+    {        
         public EmailSenderProviderOptionsChangeTokenSource(IEmailSenderProviderConfiguration<TProvider> providerConfiguration) : base(providerConfiguration.Configuration)
         {
         }

@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace AdminApp.Extensions.EmailSending.Configuration
 {
-    public static class EmailSenderProviderConfigurationExtensions
+    public static class EmailSenderProviderOptions
     {
         public static void RegisterProviderOptions<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TOptions, TProvider>(IServiceCollection services) where TOptions : class
         {

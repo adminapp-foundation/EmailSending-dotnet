@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AdminApp.Extensions.EmailSending.Configuration
 {
-    internal class EmailSenderProviderConfiguration<T> : IEmailSenderProviderConfiguration<T>
+    internal sealed class EmailSenderProviderConfiguration<T> : IEmailSenderProviderConfiguration<T>
     {
         public EmailSenderProviderConfiguration(IEmailSenderProviderConfigurationFactory providerConfigurationFactory)
         {

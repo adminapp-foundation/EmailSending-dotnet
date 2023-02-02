@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 
 namespace AdminApp.Extensions.EmailSending.Configuration
 {
-    internal class EmailSenderProviderConfigureOptions<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TOptions, TProvider> : ConfigureFromConfigurationOptions<TOptions> where TOptions : class
+    internal sealed class EmailSenderProviderConfigureOptions<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)] TOptions, TProvider> : ConfigureFromConfigurationOptions<TOptions> where TOptions : class
     {
         public EmailSenderProviderConfigureOptions(IEmailSenderProviderConfiguration<TProvider> providerConfiguration)
             : base(providerConfiguration.Configuration)

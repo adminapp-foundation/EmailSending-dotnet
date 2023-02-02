@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AdminApp.Extensions.EmailSending.Configuration
 {
-    internal interface IEmailSenderProviderConfiguration<T>
+    public interface IEmailSenderProviderConfiguration<T>
     {
         IConfiguration Configuration { get; }
     }
