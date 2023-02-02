@@ -7,7 +7,7 @@ on:
       - releases/*
     paths:
       - 'src/**'
-      - 'workflows/build-and-test.yml'
+      - 'workflows/**'
   pull_request:
     branches: [ main ]
 
@@ -22,7 +22,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         dotnet: [ '6.0.x', '7.0.x' ]
         solution:
-          - "src/AdminApp.Extensions.EmailSending.Abstractions/AdminApp.Extensions.EmailSending.Abstractions.sln"
           - "src/AdminApp.Extensions.EmailSending/AdminApp.Extensions.EmailSending.sln"
           - "src/AdminApp.Extensions.EmailSending.Mailgun/AdminApp.Extensions.EmailSending.Mailgun.sln"
           - "src/AdminApp.Extensions.EmailSending.SendGrid/AdminApp.Extensions.EmailSending.SendGrid.sln"
