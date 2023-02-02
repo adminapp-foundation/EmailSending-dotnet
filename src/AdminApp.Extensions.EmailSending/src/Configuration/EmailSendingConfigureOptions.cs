@@ -27,7 +27,7 @@ namespace AdminApp.Extensions.EmailSending.Configuration
                 return;
             }
 
-            var preferredProviders = _configuration.GetValue(nameof(options.ProviderOrders), options.ProviderOrders);
+            var preferredProviders = _configuration.GetValue<List<string>>(nameof(options.ProviderOrders));
             if (preferredProviders != null && preferredProviders.Any())
             {
                 options.ProviderOrders.Clear();
@@ -37,17 +37,16 @@ namespace AdminApp.Extensions.EmailSending.Configuration
                 }
             }
 
-            var fromRules = _configuration.GetValue(nameof(options.FromRules), options.FromRules);
+            var fromRules = _configuration.GetValue<Dictionary<string, List<string>>>(nameof(options.FromRules));
             if (fromRules != null && fromRules.Any())
             {
-                options.FromRules.Clear();
                 foreach (var fromRule in fromRules)
                 {
-                    options.FromRules.Add(fromRule);
+                    options.FromRules.TryAdd(fromRule.Key, fromRule.Value);
                 }
             }
 
-            var categoryRules = _configuration.GetValue(nameof(options.CategoryRules), new Dictionary<string, CategoryRuleConfigureValue>());
+            var categoryRules = _configuration.GetValue<Dictionary<string, CategoryRuleConfigureValue>>(nameof(options.CategoryRules));
             if (categoryRules != null && categoryRules.Any())
             {
                 foreach (var categoryRule in categoryRules)
@@ -56,16 +55,10 @@ namespace AdminApp.Extensions.EmailSending.Configuration
 
                     if (categoryRuleValue != null && categoryRuleValue.FromEmailAddress != null)
                     {
-                        options.CategoryRules.Add(categoryRule.Key, new CategoryRuleValue(categoryRuleValue.FromEmailAddress, categoryRuleValue.ReplyToEmailAddress));
+                        options.CategoryRules.TryAdd(
+                            categoryRule.Key,
+                            new CategoryRuleValue(categoryRuleValue.FromEmailAddress, categoryRuleValue.ReplyToEmailAddress));
                     }
-
-                }
-            }
-
-            foreach (IConfigurationSection configurationSection in _configuration.GetChildren())
-            {
-                if (configurationSection.Key.Equals(nameof(options.FromRules), StringComparison.OrdinalIgnoreCase))
-                {
 
                 }
             }
@@ -112,6 +105,4 @@ namespace AdminApp.Extensions.EmailSending.Configuration
             }
         }
     }
-
-
 }
