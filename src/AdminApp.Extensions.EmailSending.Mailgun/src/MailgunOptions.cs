@@ -6,19 +6,31 @@ namespace AdminApp.Extensions.EmailSending.Mailgun
     {
         public string? ApiKey { get; set; }
 
-        public EmailAddress? FromEmailAddress { get; set; }
+        public string? From { get; set; }
 
-        public IList<MailgunFromEmailRule>? FromEmailRules { get; set; } = new List<MailgunFromEmailRule>();
+        internal EmailAddress? FromEmailAddress
+        {
+            get
+            {
+                return From != null ? EmailAddressHelper.ParseEmail(From) : null;
+            }
+        }
+
+        public IList<MailgunRule>? Rules { get; set; }
     }
 
-    public class MailgunFromEmailRule
+    public class MailgunRule
     {
-        public MailgunFromEmailRule(EmailAddress fromEmailAddress)
-        {
-            FromEmailAddress = fromEmailAddress;
+        public string? From { get; set; }
 
-        }
         public string? ApiKey { get; set; }
-        public EmailAddress FromEmailAddress { get; set; }
+
+        internal EmailAddress? FromEmailAddress
+        {
+            get
+            {
+                return From != null ? EmailAddressHelper.ParseEmail(From) : null;
+            }
+        }
     }
 }

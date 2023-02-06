@@ -182,12 +182,13 @@ namespace AdminApp.Extensions.EmailSending.Mailgun
             }
 
             var apiKey = Options.ApiKey;
-            if (Options.FromEmailRules != null && Options.FromEmailRules.Any())
+            if (Options.Rules != null && Options.Rules.Any())
             {
-                var rules = Options.FromEmailRules;
+                var rules = Options.Rules;
                 foreach (var rule in rules)
                 {
-                    if (rule.FromEmailAddress.Email.ToLowerInvariant() == fromEmail.ToLowerInvariant())
+                    if (rule.FromEmailAddress != null &&
+                        rule.FromEmailAddress.Email.Equals(fromEmail, StringComparison.OrdinalIgnoreCase))
                     {
                         apiKey = rule.FromEmailAddress.Email;
                         break;

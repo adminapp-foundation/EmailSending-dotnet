@@ -37,7 +37,6 @@ namespace AdminApp.Extensions.EmailSending.Mailgun
             }
         }
 
-
         public void Dispose()
         {
             _optionsReloadToken?.Dispose();

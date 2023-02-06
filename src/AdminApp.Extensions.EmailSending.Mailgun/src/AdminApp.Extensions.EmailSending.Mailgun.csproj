@@ -9,8 +9,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\AdminApp.Extensions.EmailSending.Abstractions\src\AdminApp.Extensions.EmailSending.Abstractions.csproj" />
+  <ItemGroup>    
     <ProjectReference Include="..\..\AdminApp.Extensions.EmailSending\src\AdminApp.Extensions.EmailSending.csproj" />
   </ItemGroup>
 
