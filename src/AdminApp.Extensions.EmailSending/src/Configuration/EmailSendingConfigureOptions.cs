@@ -93,7 +93,7 @@ namespace AdminApp.Extensions.EmailSending.Configuration
             {
                 get
                 {
-                    return ParseEmailAddress(From);
+                    return From != null ? EmailAddressHelper.ParseEmail(From) : null;
                 }
             }
 
@@ -101,26 +101,7 @@ namespace AdminApp.Extensions.EmailSending.Configuration
             {
                 get
                 {
-                    return ParseEmailAddress(ReplyTo);
-                }
-            }
-
-            private static EmailAddress? ParseEmailAddress(string? emailText)
-            {
-                if (string.IsNullOrWhiteSpace(emailText))
-                {
-                    return null;
-                }
-
-                try
-                {
-                    var mailAddress = new System.Net.Mail.MailAddress(emailText);
-
-                    return new EmailAddress(mailAddress.Address, mailAddress.DisplayName);
-                }
-                catch (FormatException)
-                {
-                    return null;
+                    return ReplyTo != null ? EmailAddressHelper.ParseEmail(ReplyTo) : null;
                 }
             }
         }

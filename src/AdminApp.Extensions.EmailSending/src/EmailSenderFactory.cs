@@ -198,7 +198,7 @@ namespace AdminApp.Extensions.EmailSending
 
                     foreach (var pair in _options.FromRules)
                     {
-                        if (fromEmail.ToUpperInvariant() == pair.Key.ToUpperInvariant())
+                        if (fromEmail.Equals(pair.Key, StringComparison.OrdinalIgnoreCase))
                         {
                             return pair.Value
                                 .ToList()
